@@ -1,0 +1,108 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Стиль для страницы регистрации */
+#registration {
+  text-align: center;
+}
+
+#registration-form label,
+#registration-form input,
+#registration-form button {
+  display: block;
+  margin-bottom: 10px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+/* Стиль для страницы расписания */
+#timetable {
+  text-align: center;
+}
+
+#timetable-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+#timetable-table th,
+#timetable-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#timetable-table th {
+  background-color: #f0f0f0;
+}
+
+/* Стиль для страницы профиля */
+#profile {
+  text-align: center;
+}
+
+#profile-info {
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  width: 300px;
+}
+
+#profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+#profile-name,
+#profile-email {
+  font-weight: bold;
+}
+
+#update-profile-form label,
+#update-profile-form input,
+#update-profile-form button {
+  display: block;
+  margin-bottom: 10px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+#profile-image-input {
+  display: block;
+  margin: 20px auto;
+  width: 300px;
+}
+
+footer {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}

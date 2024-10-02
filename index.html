@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт расписания</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключение Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
+      import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+      import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-storage.js";
+
+      // Конфигурация Firebase
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID",
+        measurementId: "YOUR_MEASUREMENT_ID"
+      };
+
+      // Инициализация Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+      const auth = getAuth();
+      const storage = getStorage();
+
+      // Проверка аутентификации
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          // Пользователь авторизован, отображаем профиль
+          showSection('profile');
+          // Получаем данные пользователя
+          getUserData()
+            .then(userData => {
+              updateProfileUI(userData);
+            })
+            .catch(error => {
+              console.error("Error getting user data:", error);
+            });
+        } else {
+          // Пользователь не авторизован, отображаем форму регистрации
+          showSection('registration');
+        }
+      });
+
+      // ... остальной код ...
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Мой Сайт Расписания</h1>
+    </header>
+    <main>
+        <!-- Раздел регистрации -->
+        <section id="registration">
+            <h2>Регистрация</h2>
+            <form id="registration-form">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            <!-- Кнопки авторизации -->
+            <button id="login-vk">Войти через ВКонтакте</button>
+            <button id="login-google">Войти через Google</button>
+        </section>
+
+        <!-- Раздел расписания -->
+        <section id="timetable" style="display:none;">
+            <h2>Ваше расписание</h2>
+            <table id="timetable-table">
+                <thead>
+                    <tr>
+                        <th>День</th>
+                        <th>Время</th>
+                        <th>Предмет/Мероприятие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Заполняется JavaScript'ом -->
+                </tbody>
+            </table>
+            <button id="add-event">Добавить событие</button>
+        </section>
+
+        <!-- Раздел профиля -->
+        <section id="profile" style="display:none;">
+            <div id="profile-info">
+                <img id="profile-image" src="placeholder.png" alt="Профиль">
+                <div>
+                    <p>Имя: <span id="profile-name"></span></p>
+                    <p>Email: <span id="profile-email"></span></p>
+                </div>
+            </div>
+            <form id="update-profile-form">
+                <label for="display-name">Новое имя:</label>
+                <input type="text" id="display-name" name="display-name" required>
+                <button type="submit">Обновить профиль</button>
+            </form>
+            <input type="file" id="profile-image-input" accept="image/*">
+            <button onclick="signOut()">Выйти</button>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
